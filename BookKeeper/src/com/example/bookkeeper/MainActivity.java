@@ -20,4 +20,5 @@ public class MainActivity extends Activity {
         return true;
     }
     
+    //Allan er for NICE til bordtennis
 }
