@@ -4,6 +4,7 @@ public class Book
 {
 	private String isbn;
 	private String title;
+	private String comment;
 	
 	
 	
@@ -25,6 +26,20 @@ public class Book
 	public String getTitle()
 	{
 		return this.title;
+	}
+
+	/**
+	 * @return the comment
+	 */
+	public String getComment() {
+		return comment;
+	}
+
+	/**
+	 * @param comment the comment to set
+	 */
+	public void setComment(String comment) {
+		this.comment = comment;
 	}
 	
 	
