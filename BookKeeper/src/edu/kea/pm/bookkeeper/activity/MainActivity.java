@@ -1,8 +1,9 @@
-package com.example.bookkeeper;
+package edu.kea.pm.bookkeeper.activity;
 
-import android.os.Bundle;
 import android.app.Activity;
+import android.os.Bundle;
 import android.view.Menu;
+import edu.kea.pm.bookkeeper.R;
 
 public class MainActivity extends Activity {
 

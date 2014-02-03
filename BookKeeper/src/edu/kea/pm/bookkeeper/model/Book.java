@@ -1,4 +1,4 @@
-package com.example.bookkeeper;
+package edu.kea.pm.bookkeeper.model;
 
 import java.util.List;
 
