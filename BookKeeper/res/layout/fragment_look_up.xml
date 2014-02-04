@@ -4,6 +4,7 @@
     android:layout_height="match_parent" >
 
     <TextView
+        android:id="@+id/isbnLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -17,8 +18,8 @@
         android:id="@+id/isbnEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/textView1"
-        android:layout_toRightOf="@+id/textView1"
+        android:layout_alignBottom="@+id/isbnLabel"
+        android:layout_toRightOf="@+id/isbnLabel"
         android:ems="10"
         android:inputType="number" >
 
@@ -29,8 +30,8 @@
         android:id="@+id/buttonScan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/editText1"
-        android:layout_below="@+id/editText1"
+        android:layout_alignRight="@+id/isbnEditText"
+        android:layout_below="@+id/isbnEditText"
         android:layout_marginTop="16dp"
         android:text="Look up" />
 
@@ -38,8 +39,8 @@
         android:id="@+id/buttonLookUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/button1"
-        android:layout_alignLeft="@+id/editText1"
+        android:layout_alignBottom="@+id/buttonScan"
+        android:layout_alignLeft="@+id/isbnEditText"
         android:drawableLeft="@drawable/icon_barcode"
         android:gravity="left|center_vertical"
         android:text="Scan" />

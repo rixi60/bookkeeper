@@ -9,10 +9,12 @@
                android:layout_height="match_parent"
                android:layout_weight="1"/>
 
-     <TextView android:id="@id/android:empty"
-               android:layout_width="match_parent"
-               android:layout_height="match_parent"
-               android:gravity="center"
-               android:text="No books"/>
+     <TextView
+         android:id="@id/android:empty"
+         android:layout_width="match_parent"
+         android:layout_height="match_parent"
+         android:gravity="center"
+         android:text="No books"
+         android:textAppearance="?android:attr/textAppearanceLarge" />
 
 </LinearLayout>
