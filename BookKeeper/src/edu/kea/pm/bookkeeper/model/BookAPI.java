@@ -8,8 +8,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.util.Log;
-
 public class BookAPI
 {
 	private static final String TAG = BookAPI.class.getSimpleName();
@@ -34,7 +32,6 @@ public class BookAPI
 
 			try
 			{
-				// JSONArray json = new JSONArray(buffer.toString());
 				JSONObject json = new JSONObject(buffer.toString());
 				JSONArray array = json.getJSONArray("items");
 
@@ -43,55 +40,48 @@ public class BookAPI
 				{
 					book = array.getJSONObject(0);
 
-					JSONObject volumeInfo = book.getJSONObject("volumeInfo");
-
+					JSONObject volumeInfo = book.has("volumeInfo") ? book.getJSONObject("volumeInfo") : null;
+					
 					// Log.d(TAG,"Book="+book.getJSONObject("volumeInfo"));
 					Book book1 = new Book();
-
-					// ISBN
-					String isbn2 = book.getJSONObject("volumeInfo").getJSONArray("industryIdentifiers").getJSONObject(0).getString("identifier");
-					Log.d(TAG,isbn2);
-					book1.setIsbn(isbn2);
-
-					// TITLE
-					String title = volumeInfo.getString("title");
-					Log.d(TAG,title);
-					book1.setTitle(title);
-
-					// AUTHORS
-					JSONArray authors = volumeInfo.getJSONArray("authors");
-					for (int i = 0; i < authors.length(); i++)
-					{
-						Log.d(TAG,authors.getString(i));
-						book1.addAuthor(authors.getString(i));
+					
+					if (volumeInfo != null) {
+						// ISBN
+						try
+						{
+							String isbn2 = volumeInfo.getJSONArray("industryIdentifiers").getJSONObject(0).getString("identifier");
+							book1.setIsbn(isbn2);
+						}
+						catch (JSONException e)	{ }
+						
+						// TITLE
+						book1.setTitle(volumeInfo.getString("title"));
+						
+						// AUTHORS
+						JSONArray authors = (volumeInfo.has("authors"))? volumeInfo.getJSONArray("authors") : new JSONArray();
+						for (int i = 0; i < authors.length(); i++)
+						{
+							book1.addAuthor(authors.getString(i));
+						}
+						
+						// Description
+						book1.setDescription(volumeInfo.getString("description"));
+						
+						// Language
+						book1.setLanguage(volumeInfo.getString("language"));
+						
+						// Page Count
+						book1.setPageCount(volumeInfo.getInt("pageCount"));
+						
+						// Published
+						book1.setPublished(volumeInfo.getInt("publishedDate"));
+						
+						// ThumbnailURL
+						String thumbURL = (volumeInfo.has("imageLinks")) ? volumeInfo.getJSONObject("imageLinks").getString("thumbnail") : null;
+						book1.setThumbnailURL(thumbURL);
+						
+						return book1;
 					}
-
-					// Description
-					Log.d(TAG,volumeInfo.getString("description"));
-					book1.setDescription(volumeInfo.getString("description"));
-
-					// Language
-					Log.d(TAG,volumeInfo.getString("language"));
-					book1.setLanguage(volumeInfo.getString("language"));
-
-					// Page Count
-					Log.d(TAG,"pageCount="+volumeInfo.getInt("pageCount"));
-					book1.setPageCount(volumeInfo.getInt("pageCount"));
-
-					// Published
-					Log.d(TAG,"publishedDate="+volumeInfo.getInt("publishedDate"));
-					book1.setPublished(volumeInfo.getInt("publishedDate"));
-
-					// ThumbnailURL
-					String thumbURL = volumeInfo.getJSONObject("imageLinks").getString("thumbnail");
-					Log.d(TAG,thumbURL);
-					book1.setThumbnailURL(thumbURL);
-
-					book1.setLoaner("Jeppe");
-					book1.setComment("String");
-
-					return book1;
-
 				}
 			}
 			catch (JSONException e)
