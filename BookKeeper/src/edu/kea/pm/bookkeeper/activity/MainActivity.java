@@ -1,5 +1,4 @@
 package edu.kea.pm.bookkeeper.activity;
-import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -19,6 +18,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
+
 import edu.kea.pm.bookkeeper.R;
 import edu.kea.pm.bookkeeper.fragment.BookListFragment;
 import edu.kea.pm.bookkeeper.fragment.LoopUpFragment;
@@ -176,4 +179,6 @@ public class MainActivity extends FragmentActivity {
         // Pass any configuration change to the drawer toggls
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
+    
+
 }

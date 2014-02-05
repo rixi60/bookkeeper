@@ -27,7 +27,7 @@
     </EditText>
 
     <Button
-        android:id="@+id/buttonScan"
+        android:id="@+id/buttonLookUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignRight="@+id/isbnEditText"
@@ -36,10 +36,10 @@
         android:text="Look up" />
 
     <Button
-        android:id="@+id/buttonLookUp"
+        android:id="@+id/buttonScan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/buttonScan"
+        android:layout_alignBottom="@+id/buttonLookUp"
         android:layout_alignLeft="@+id/isbnEditText"
         android:drawableLeft="@drawable/icon_barcode"
         android:gravity="left|center_vertical"
