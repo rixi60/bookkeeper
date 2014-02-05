@@ -52,7 +52,7 @@ public class BookAPI
 							String isbn2 = volumeInfo.getJSONArray("industryIdentifiers").getJSONObject(0).getString("identifier");
 							book1.setIsbn(isbn2);
 						}
-						catch (JSONException e)	{ }
+						catch (Exception e)	{ }
 						
 						// TITLE
 						book1.setTitle(volumeInfo.getString("title"));
@@ -65,16 +65,25 @@ public class BookAPI
 						}
 						
 						// Description
-						book1.setDescription(volumeInfo.getString("description"));
+						if(volumeInfo.has("description")) {							
+							book1.setDescription(volumeInfo.getString("description"));
+						}
 						
 						// Language
-						book1.setLanguage(volumeInfo.getString("language"));
+						if(volumeInfo.has("language")) {
+							book1.setLanguage(volumeInfo.getString("language"));							
+						}
 						
 						// Page Count
-						book1.setPageCount(volumeInfo.getInt("pageCount"));
+						if(volumeInfo.has("pageCount")) {
+							book1.setPageCount(volumeInfo.getInt("pageCount"));
+						}
 						
 						// Published
-						book1.setPublished(volumeInfo.getInt("publishedDate"));
+						if(volumeInfo.has("publishedDate"))
+						{
+							book1.setPublished(volumeInfo.getInt("publishedDate"));
+						}
 						
 						// ThumbnailURL
 						String thumbURL = (volumeInfo.has("imageLinks")) ? volumeInfo.getJSONObject("imageLinks").getString("thumbnail") : null;
