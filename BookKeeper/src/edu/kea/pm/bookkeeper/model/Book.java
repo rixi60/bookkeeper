@@ -1,9 +1,13 @@
 package edu.kea.pm.bookkeeper.model;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Book 
+public class Book implements Serializable
 {
+	private static final long serialVersionUID = -399086889791219587L;
+
+	public final static String BOOK_BUNDLE_KEY = "BOOK_BUNDLE_KEY";
 	private String isbn;
 	private String title;
 	private List<String> authors;
