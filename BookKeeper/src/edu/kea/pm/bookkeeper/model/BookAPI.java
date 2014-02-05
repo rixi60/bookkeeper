@@ -1,6 +1,7 @@
 package edu.kea.pm.bookkeeper.model;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 
@@ -13,7 +14,7 @@ public class BookAPI
 	private static final String TAG = BookAPI.class.getSimpleName();
 	private static String url = "https://www.googleapis.com/books/v1/volumes?q=isbn:";
 
-	public static Book readISBN(String isbn) throws Exception
+	public static Book readISBN(String isbn) throws IOException
 	{
 		BufferedReader reader = null;
 		String googleUrl = "https://www.googleapis.com/books/v1/volumes?q=isbn:";
@@ -97,13 +98,20 @@ public class BookAPI
 			{
 				e.printStackTrace();
 			}
-			return null;
 		}
 		finally
 		{
 			if (reader != null)
-				reader.close();
+				try
+				{
+					reader.close();
+				}
+				catch (IOException e)
+				{
+					e.printStackTrace();
+				}
 		}
+		return null;
 
 	}
 

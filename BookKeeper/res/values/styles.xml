@@ -17,5 +17,9 @@
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
         <item name="android:windowBackground">@drawable/bg</item>
     </style>
+    
+    <style name="CustomActionBarUpAsHome" >
+        <item name="android:displayOptions">homeAsUp|useLogo|showHome</item>
+    </style>
 
 </resources>

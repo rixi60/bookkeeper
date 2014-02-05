@@ -19,6 +19,9 @@ public class DownloadBooksTask extends AsyncTask<String, Void, Book>{
 		
 	}
 	
+	public DownloadBooksTask(){
+		
+	}
 	public DownloadBooksTask(DownloadListener listener) {
 		super();
 		this.listener = listener;
@@ -35,31 +38,14 @@ public class DownloadBooksTask extends AsyncTask<String, Void, Book>{
 		if ((params == null) || (params.length != 1)) {
 			throw new IllegalArgumentException("The URL is expected as a parameter.");
 		}
-		 
-		InputStream is = null;
-		try {
-			is = download(params[0]);
-			
+		 try
+		{
 			// Fetches book information:
 			return BookAPI.readISBN(params[0]);
 
 		} catch (IOException e) {
 			e.printStackTrace();
 			
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			if (is != null) {
-				try
-				{
-					is.close();
-				}
-				catch (IOException e)
-				{
-					e.printStackTrace();
-				}
-			}
 		}
 		return null;
 	}

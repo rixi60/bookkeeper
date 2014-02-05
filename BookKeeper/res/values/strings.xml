@@ -14,6 +14,9 @@
     <string name="drawer_close">Close navigation drawer</string>
     <string name="action_websearch">Web search</string>
     <string name="app_not_available">Sorry, there\'s no web browser available</string>
+    
+    <string name="generic_missing_info">-</string>
+    <string name="activity_book_info_name">Book info</string>
 
 
 </resources>
