@@ -40,20 +40,15 @@ public class DownloadBooksTask extends AsyncTask<String, Void, Book>{
 		try {
 			is = download(params[0]);
 			
-			// TODO: Convert to JSON here!!!
-			Book book;
-			try {
-				book = BookAPI.readISBN(params[0]);
-			} catch (Exception e) {
-				book = null;
-			}
-			
-			
-			return book;
+			// Fetches book information:
+			return BookAPI.readISBN(params[0]);
 
 		} catch (IOException e) {
 			e.printStackTrace();
 			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} finally {
 			if (is != null) {
 				try
