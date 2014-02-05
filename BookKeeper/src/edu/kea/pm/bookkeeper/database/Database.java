@@ -8,6 +8,8 @@ import edu.kea.pm.bookkeeper.model.*;
 
 public interface Database
 {
+	
+	//Getters
 	public Book getBookWithId(String id);
 	public Cursor getAllBooks();
 	public List<Book> getBooksWithISBN(String isbn);
@@ -16,5 +18,10 @@ public interface Database
 	public List<Book> getLoanedBooks();
 	public List<Book> getBooksLoanedByPerson(String personName);
 	public List<Book> getBooksWithPublishedYear(int year);		
+
+	//Setters:
+	public void addBook(Book book);
+	public void saveBook(Book book);
+	
 	
 }
