@@ -3,6 +3,7 @@ package edu.kea.pm.bookkeeper.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -58,24 +59,10 @@ public class LoopUpFragment extends Fragment
         return rootView;
     }
     
-    private void openBookForISBN(){
-    	
+    public void openBookForISBN(String isbn){
+    	mTextField.setText(isbn);
+    	mTextField.setSelection(mTextField.length());
     }
-    
   
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent intent)
-    {
-    	super.onActivityResult(requestCode, resultCode, intent);
-    	IntentResult scanningResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
-    	if (scanningResult != null) {
-    		Toast toast = Toast.makeText(getActivity(),
-    				"Result="+scanningResult.getContents(), Toast.LENGTH_SHORT);
-    		toast.show();
-    	} else {
-    		Toast toast = Toast.makeText(getActivity(),
-    				"No scan data received!", Toast.LENGTH_SHORT);
-    		toast.show();
-    	}
-    }
+
 }

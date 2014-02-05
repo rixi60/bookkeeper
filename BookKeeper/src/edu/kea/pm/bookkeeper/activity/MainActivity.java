@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -176,9 +177,28 @@ public class MainActivity extends FragmentActivity {
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        // Pass any configuration change to the drawer toggls
+        // Pass any configuration change to the drawer toggle
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
     
-
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent intent)
+    {
+    	super.onActivityResult(requestCode, resultCode, intent);
+    	Log.d(getClass().getSimpleName(), "intent="+intent);
+    	IntentResult scanningResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
+    	if (scanningResult != null) {
+    		try
+			{
+    			Long.valueOf(scanningResult.getContents());
+    			mFragmentLoopup.openBookForISBN(scanningResult.getContents());
+    			// TODO :  open book activity
+    			return;
+			}
+			catch (NumberFormatException e)	{ }
+    	}
+    	Toast toast = Toast.makeText(this,
+    			"No scan data received!", Toast.LENGTH_SHORT);
+    	toast.show();
+    }
 }
