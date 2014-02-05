@@ -11,13 +11,13 @@ import org.json.JSONObject;
 public class BookAPI
 {
 	private static final String TAG = BookAPI.class.getSimpleName();
-	private String url = "https://www.googleapis.com/books/v1/volumes?q=isbn:";
+	private static String url = "https://www.googleapis.com/books/v1/volumes?q=isbn:";
 
-	public Book readISBN(String isbn) throws Exception
+	public static Book readISBN(String isbn) throws Exception
 	{
 		BufferedReader reader = null;
-
-		String apiurl = this.url + isbn;
+		String googleUrl = "https://www.googleapis.com/books/v1/volumes?q=isbn:";
+		String apiurl = googleUrl + isbn;
 
 		// reads the json
 		try

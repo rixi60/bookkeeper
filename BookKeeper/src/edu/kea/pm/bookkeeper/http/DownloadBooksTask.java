@@ -7,6 +7,7 @@ import java.net.URL;
 
 import android.os.AsyncTask;
 import edu.kea.pm.bookkeeper.model.Book;
+import edu.kea.pm.bookkeeper.model.BookAPI;
 
 public class DownloadBooksTask extends AsyncTask<String, Void, Book>{
 
@@ -40,6 +41,15 @@ public class DownloadBooksTask extends AsyncTask<String, Void, Book>{
 			is = download(params[0]);
 			
 			// TODO: Convert to JSON here!!!
+			Book book;
+			try {
+				book = BookAPI.readISBN(params[0]);
+			} catch (Exception e) {
+				book = null;
+			}
+			
+			
+			return book;
 
 		} catch (IOException e) {
 			e.printStackTrace();
