@@ -1,16 +1,13 @@
 package edu.kea.pm.bookkeeper.database;
 
 public class LoanTable {
+	//TABLE NAME
 	public static final String TABLE_NAME = "loaner";
 	
 	public static final String ID = "_id";
 	public static final String BOOK_ID = "book_id";
 	public static final String LOANER = "loaner";
 	public static final String TIMESTAMP = "timestamp";
-	
-	// id int
-	// bookid int
-	// loaner String
 	
     public static final String CREATE_TABLE = "CREATE TABLE "
             + TABLE_NAME + "(" 

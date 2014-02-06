@@ -1,6 +1,7 @@
 package edu.kea.pm.bookkeeper.database;
 
 public class BookTable {
+	// TABLE NAME
 	public static final String TABLE_NAME = "book";
 	
 	public static final String ID = "_id";
