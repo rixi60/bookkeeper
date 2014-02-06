@@ -83,7 +83,7 @@ public class BookAPI
 						// Published
 						if(volumeInfo.has("publishedDate"))
 						{
-							book1.setPublished(volumeInfo.getInt("publishedDate"));
+							book1.setPublished(volumeInfo.getString("publishedDate"));
 						}
 						
 						// ThumbnailURL

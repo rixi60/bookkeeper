@@ -30,7 +30,9 @@ public class DownloadBooksTask extends AsyncTask<String, Void, Book>{
 	@Override
 	protected void onPreExecute() { 
 		super.onPreExecute();
-		listener.onBusy();
+		if (listener != null) {
+			listener.onBusy();
+		}
 	}
 	
 	@Override
@@ -53,7 +55,9 @@ public class DownloadBooksTask extends AsyncTask<String, Void, Book>{
 	@Override
 	protected void onPostExecute(Book book) {
 		super.onPostExecute(book);
-		listener.onFinish(book);
+		if (listener != null) {
+			listener.onFinish(book);
+		}
 	}
 	
 	protected InputStream download(String urlString) throws IOException {

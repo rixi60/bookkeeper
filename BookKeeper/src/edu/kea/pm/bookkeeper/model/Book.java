@@ -3,6 +3,8 @@ package edu.kea.pm.bookkeeper.model;
 import java.io.Serializable;
 import java.util.List;
 
+import android.text.TextUtils;
+
 public class Book implements Serializable
 {
 	private static final long serialVersionUID = -399086889791219587L;
@@ -10,11 +12,11 @@ public class Book implements Serializable
 	public final static String BOOK_BUNDLE_KEY = "BOOK_BUNDLE_KEY";
 	private String isbn;
 	private String title;
-	private List<String> authors;
+	private String authors;
 	private String description;
 	private String language;
 	private int pageCount;
-	private int published;
+	private String published;
 	private String thumbnailURL;
 	private String loaner;
 	private String comment;
@@ -45,14 +47,14 @@ public class Book implements Serializable
 	/**
 	 * @return the authors
 	 */
-	public List<String> getAuthors() {
+	public String getAuthors() {
 		return authors;
 	}
 
 	/**
 	 * @param authors the authors to set
 	 */
-	public void setAuthors(List<String> authors) {
+	public void setAuthors(String authors) {
 		this.authors = authors;
 	}
 
@@ -62,7 +64,11 @@ public class Book implements Serializable
 	 */
 	public void addAuthor(String author)
 	{
-		this.authors.add(author);
+		if (TextUtils.isEmpty(this.authors)) {
+			this.authors = author;
+		} else {
+			this.authors += ", "+author;
+		}
 	}
 	
 	/**
@@ -124,14 +130,14 @@ public class Book implements Serializable
 	/**
 	 * @return the published
 	 */
-	public int getPublished() {
+	public String getPublished() {
 		return published;
 	}
 
 	/**
 	 * @param published the published to set
 	 */
-	public void setPublished(int published) {
+	public void setPublished(String published) {
 		this.published = published;
 	}
 

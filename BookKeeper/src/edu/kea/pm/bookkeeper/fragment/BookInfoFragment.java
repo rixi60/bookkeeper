@@ -3,6 +3,7 @@ package edu.kea.pm.bookkeeper.fragment;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,7 +59,7 @@ public class BookInfoFragment extends Fragment
     	mLanguage.setText(book.getLanguage() != null ? book.getLanguage() : noInfo);
     	mDescription.setText(book.getDescription() != null ? book.getDescription() : noInfo);
     	mPages.setText(book.getPageCount() > 0 ? String.valueOf(book.getPageCount()) : noInfo);
-    	mPublished.setText(book.getPublished() > 0 ? String.valueOf(book.getPublished()) : noInfo);
+    	mPublished.setText(!TextUtils.isEmpty(book.getPublished()) ? book.getPublished() : noInfo);
 //    	mCoverImage // TODO: Get image from URL
     }
     

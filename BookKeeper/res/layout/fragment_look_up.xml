@@ -11,7 +11,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="44dp"
-        android:text="ISBN:"
+        android:text="ISBN/Barcode:"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <EditText

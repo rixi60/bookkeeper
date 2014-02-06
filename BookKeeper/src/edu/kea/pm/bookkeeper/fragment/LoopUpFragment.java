@@ -79,9 +79,7 @@ public class LoopUpFragment extends Fragment
 		{
 			Long.parseLong(mTextField.getText().toString().trim());
 			Intent intent = new Intent(getActivity(), BookInfoActivity.class);
-			Book book = new Book();
-			book.setIsbn(mTextField.getText().toString().trim());
-			intent.putExtra(Book.BOOK_BUNDLE_KEY, book);
+			intent.putExtra(BookInfoActivity.BUNDLE_BARCODE, mTextField.getText().toString().trim());
 			getActivity().startActivity(intent);
 		}
 		catch (NumberFormatException e)

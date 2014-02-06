@@ -17,8 +17,11 @@ import edu.kea.pm.bookkeeper.model.Book;
 
 public class BookInfoActivity extends FragmentActivity implements BookInfoFragmentController, DownloadListener
 {
-	Book mBook;
-	BookInfoFragment mFragment;
+	private Book mBook;
+	private BookInfoFragment mFragment;
+	private String mBarcode;
+	public static final String BUNDLE_BARCODE = "BUNDLE_BARCODE";
+	public DownloadBooksTask mTask;
 	
 	@Override
 	protected void onCreate(Bundle bundle)
@@ -27,7 +30,8 @@ public class BookInfoActivity extends FragmentActivity implements BookInfoFragme
 		super.onCreate(bundle);
 		setContentView(R.layout.activity_single_frame_container);
 		
-		mBook = (Book) getIntent().getSerializableExtra(Book.BOOK_BUNDLE_KEY);
+		mBook = new Book();
+		mBarcode = getIntent().getStringExtra(BUNDLE_BARCODE);
 		
 		mFragment = new BookInfoFragment();
 		mFragment.setArguments(bundle);
@@ -35,7 +39,16 @@ public class BookInfoActivity extends FragmentActivity implements BookInfoFragme
 		FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.content_frame, mFragment).commit();
         
-        new DownloadBooksTask(this).execute(mBook.getIsbn());
+       mTask = new DownloadBooksTask(this);
+       mTask.execute(mBarcode);
+	}
+	
+	
+	@Override
+	protected void onStop()
+	{
+		mTask.cancel(true);
+		super.onPause();
 	}
 
 	@Override
@@ -69,7 +82,7 @@ public class BookInfoActivity extends FragmentActivity implements BookInfoFragme
 							BookInfoActivity.this.finish();
 						}
 					})
-					.setMessage("The book with ISBN "+mBook.getIsbn()+" could not be found.\nCheck the ISBN and your internet connection")
+					.setMessage("The book with ISBN/barcode "+mBarcode+" could not be found.\nCheck the ISBN and your internet connection")
 					.setNegativeButton(android.R.string.ok, new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int id) {
 							BookInfoActivity.this.finish();
