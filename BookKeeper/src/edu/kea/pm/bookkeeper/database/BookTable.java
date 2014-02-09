@@ -13,6 +13,8 @@ public class BookTable {
 	public static final String PAGE_COUNT = "page_count";
 	public static final String COMMENT = "comment";
 	public static final String PUBLISHED = "published";
+	public static final String LOANER = "loaner";
+	public static final String IMAGE = "img_url";
 	
     public static final String CREATE_TABLE = "CREATE TABLE "
             + TABLE_NAME + "(" 
@@ -24,5 +26,7 @@ public class BookTable {
     		+ LANGUAGE + " TEXT,"
             + PAGE_COUNT + " INTEGER," 
             + COMMENT + " TEXT,"
+            + LOANER + " TEXT,"
+            + IMAGE + " TEXT,"
             + PUBLISHED + " TEXT)";
 }

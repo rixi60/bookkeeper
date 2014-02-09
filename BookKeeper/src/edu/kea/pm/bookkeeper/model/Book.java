@@ -10,6 +10,7 @@ public class Book implements Serializable
 	private static final long serialVersionUID = -399086889791219587L;
 
 	public final static String BOOK_BUNDLE_KEY = "BOOK_BUNDLE_KEY";
+	private long book_id;
 	private String isbn;
 	private String title;
 	private String authors;
@@ -167,6 +168,14 @@ public class Book implements Serializable
 	 */
 	public void setLoaner(String loaner) {
 		this.loaner = loaner;
+	}
+
+	public long getBook_id() {
+		return book_id;
+	}
+
+	public void setBook_id(long book_id) {
+		this.book_id = book_id;
 	}
 	
 	

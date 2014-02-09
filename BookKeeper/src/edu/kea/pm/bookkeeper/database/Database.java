@@ -1,6 +1,6 @@
 package edu.kea.pm.bookkeeper.database;
 
-import android.database.Cursor;
+import java.util.List;
 
 import edu.kea.pm.bookkeeper.model.*;
 
@@ -10,7 +10,7 @@ public interface Database
 	//Getters
 	//TODO: Jesper.
 	public Book getBookWithId(String id);
-	public Cursor getAllBooks();
+	public List<Book> getAllBooks();
 
 	//Setters:
 	public void saveBook(Book book);
