@@ -3,9 +3,11 @@ package edu.kea.pm.bookkeeper.database;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.text.TextUtils;
 import edu.kea.pm.bookkeeper.model.Book;
 
 public class DatabaseImpl implements Database{
@@ -53,13 +55,46 @@ public class DatabaseImpl implements Database{
 	}
  
 	@Override
-	public void saveBook(Book book) {
-		db.updateBook(book);
+	public void saveBook(Book book) 
+	{
+		SQLiteDatabase database = db.getWritableDatabase();
+		
+		if (book.getBook_id() > 0) {
+			// Update existing book:
+			database.update(BookTable.TABLE_NAME, values, BookTable.ID + " = ?", new String [] { String.valueOf(book.getBook_id()) } );
+		} else {
+			// Create new book:
+			ContentValues values = new ContentValues();
+	        values.put(BookTable.ISBN, book.getIsbn());
+	        values.put(BookTable.TITLE, book.getTitle());
+	        values.put(BookTable.DESCRIPTION, book.getDescription());
+	        values.put(BookTable.LANGUAGE, book.getLanguage());
+	        values.put(BookTable.PAGE_COUNT, book.getPageCount());
+	        values.put(BookTable.COMMENT, book.getComment());
+	        values.put(BookTable.IMAGE, book.getThumbnailURL());
+	        values.put(BookTable.PUBLISHED, book.getPublished());
+	        
+	        // insert row
+	        long book_id = database.insert(BookTable.TABLE_NAME, null, values);
+	        
+	        
+
+	        if (!TextUtils.isEmpty(book.getLoaner())) {
+	            ContentValues valuesLoaner = new ContentValues();
+	            valuesLoaner.put(LoanTable.BOOK_ID, book_id);
+	            valuesLoaner.put(LoanTable.LOANER, book.getLoaner());
+	            database.insert(LoanTable.TABLE_NAME, null, valuesLoaner);
+	        }
+		}
 	}
 
 	@Override
-	public void deleteBook(Book book) {
-		db.deleteBook(book.getBook_id());
+	public void deleteBook(Book book) 
+	{
+		SQLiteDatabase databse = db.getWritableDatabase();
+		databse.delete(BookTable.TABLE_NAME, BookTable.ID + " = ?",
+                new String[] { String.valueOf(book.getBook_id()) });
+		
 	}
 
 

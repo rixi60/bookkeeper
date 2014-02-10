@@ -101,41 +101,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         b.setThumbnailURL(c.getString(c.getColumnIndex(BookTable.PUBLISHED)));
         b.setComment(c.getString(c.getColumnIndex(BookTable.COMMENT)));
      
+        c.close();
         return b;
     }
-    
-    /*
-     * getting all books
-     * */
-    public List<Book> getAllBooks() {
-        List<Book> books = new ArrayList<Book>();
-        String selectQuery = "SELECT  * FROM " + BookTable.TABLE_NAME;
-     
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor c = db.rawQuery(selectQuery, null);
-     
-        // looping through all rows and adding to list
-        if (c.moveToFirst()) {
-            do {
-                Book b = new Book();
-                b.setBook_id(c.getLong(c.getColumnIndex(BookTable.ID)));
-                b.setIsbn(c.getString(c.getColumnIndex(BookTable.ISBN)));
-                b.setAuthors(c.getString(c.getColumnIndex(BookTable.ID)));
-                b.setDescription(c.getString(c.getColumnIndex(BookTable.ID)));
-                b.setLanguage(c.getString(c.getColumnIndex(BookTable.ID)));
-                b.setPageCount(c.getInt(c.getColumnIndex(BookTable.PAGE_COUNT)));
-                b.setPublished(c.getString(c.getColumnIndex(BookTable.PUBLISHED)));
-                b.setThumbnailURL(c.getString(c.getColumnIndex(BookTable.PUBLISHED)));
-                b.setComment(c.getString(c.getColumnIndex(BookTable.COMMENT)));
-     
-                // adding to todo list
-                books.add(b);
-            } while (c.moveToNext());
-        }
-     
-        return books;
-    }
-    
+        
     /*
      * get single loan
      */
@@ -179,15 +148,5 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return db.update(BookTable.TABLE_NAME, values, BookTable.ID + " = ?",
                 new String[] { String.valueOf(b.getBook_id()) });
     }
-    
-    /* D - DELETE statements */
-    
-    /**
-     * Deleting a book
-     */
-    public void deleteBook(long book_id) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(BookTable.TABLE_NAME, BookTable.ID + " = ?",
-                new String[] { String.valueOf(book_id) });
-    }
+
 }
