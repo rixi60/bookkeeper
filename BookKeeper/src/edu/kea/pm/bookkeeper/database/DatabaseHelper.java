@@ -9,6 +9,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.text.TextUtils;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     // Database Version
@@ -45,40 +46,32 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     * Creating a book
     * Loaner b¿r v¾re id til loan tabellen
     */
-    public long createBook(Book b) {
+    public void createBook(Book b) {
+    	
         SQLiteDatabase db = this.getWritableDatabase();
-
+        
+        
         ContentValues values = new ContentValues();
-        values.put(BookTable.ISBN, b.getAuthors());
-        values.put(BookTable.TITLE, b.getAuthors());
-        values.put(BookTable.DESCRIPTION, b.getAuthors());
-        values.put(BookTable.LANGUAGE, b.getAuthors());
-        values.put(BookTable.PAGE_COUNT, b.getAuthors());
-        values.put(BookTable.COMMENT, b.getAuthors());
+        values.put(BookTable.ISBN, b.getIsbn());
+        values.put(BookTable.TITLE, b.getTitle());
+        values.put(BookTable.DESCRIPTION, b.getDescription());
+        values.put(BookTable.LANGUAGE, b.getLanguage());
+        values.put(BookTable.PAGE_COUNT, b.getPageCount());
+        values.put(BookTable.COMMENT, b.getComment());
         values.put(BookTable.IMAGE, b.getThumbnailURL());
-        values.put(BookTable.LOANER, b.getLoaner());
         values.put(BookTable.PUBLISHED, b.getPublished());
-
+        
         // insert row
         long book_id = db.insert(BookTable.TABLE_NAME, null, values);
 
-        return book_id;
-    }
-    
-    /*
-    * Creating a loan
-    */
-    public long createLoan(Book b, String loaner) {
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put(LoanTable.BOOK_ID, b.getBook_id());
-        values.put(LoanTable.LOANER, loaner);
-
-        // insert row
-        long loan_id = db.insert(LoanTable.TABLE_NAME, null, values);
-
-        return loan_id;
+        if (!TextUtils.isEmpty(b.getLoaner())) {
+            ContentValues valuesLoaner = new ContentValues();
+            valuesLoaner.put(LoanTable.BOOK_ID, book_id);
+            valuesLoaner.put(LoanTable.LOANER, b.getLoaner());
+            db.insert(LoanTable.TABLE_NAME, null, valuesLoaner);
+        }
+        
+        
     }
     
     /* R - READ statements */
@@ -106,7 +99,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         b.setPageCount(c.getInt(c.getColumnIndex(BookTable.PAGE_COUNT)));
         b.setPublished(c.getString(c.getColumnIndex(BookTable.PUBLISHED)));
         b.setThumbnailURL(c.getString(c.getColumnIndex(BookTable.PUBLISHED)));
-        b.setLoaner(c.getString(c.getColumnIndex(BookTable.LOANER)));
         b.setComment(c.getString(c.getColumnIndex(BookTable.COMMENT)));
      
         return b;
@@ -134,7 +126,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 b.setPageCount(c.getInt(c.getColumnIndex(BookTable.PAGE_COUNT)));
                 b.setPublished(c.getString(c.getColumnIndex(BookTable.PUBLISHED)));
                 b.setThumbnailURL(c.getString(c.getColumnIndex(BookTable.PUBLISHED)));
-                b.setLoaner(c.getString(c.getColumnIndex(BookTable.LOANER)));
                 b.setComment(c.getString(c.getColumnIndex(BookTable.COMMENT)));
      
                 // adding to todo list
@@ -182,7 +173,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(BookTable.PAGE_COUNT, b.getAuthors());
         values.put(BookTable.COMMENT, b.getAuthors());
         values.put(BookTable.IMAGE, b.getThumbnailURL());
-        values.put(BookTable.LOANER, b.getLoaner());
         values.put(BookTable.PUBLISHED, b.getPublished());
      
         // updating row
