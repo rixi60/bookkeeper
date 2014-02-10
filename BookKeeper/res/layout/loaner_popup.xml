@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+    
+    <TextView  
+        android:text="Loaner:"         
+        android:layout_width="fill_parent" 
+        android:layout_height="wrap_content" />          
+        
+  <EditText 
+      android:id="@+id/loaner_text"
+      android:layout_height="wrap_content" 
+      android:layout_width="fill_parent" 
+      android:maxLength="255" 
+      android:inputType="text"/>
+
+<Button 
+    android:id="@+id/loaner_ok_button"
+    android:layout_height="wrap_content" 
+    android:layout_width="wrap_content"  
+    android:text="OK"  
+    android:layout_gravity="center"/>
+
+</LinearLayout>
