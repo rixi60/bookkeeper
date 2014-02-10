@@ -3,10 +3,15 @@ package edu.kea.pm.bookkeeper.activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.Window;
+import android.widget.Toast;
 import edu.kea.pm.bookkeeper.R;
 import edu.kea.pm.bookkeeper.fragment.BookInfoFragment;
 import edu.kea.pm.bookkeeper.fragment.BookInfoFragment.BookInfoFragmentController;
@@ -21,6 +26,7 @@ public class BookInfoActivity extends FragmentActivity implements BookInfoFragme
 	private BookInfoFragment mFragment;
 	private String mBarcode;
 	public static final String BUNDLE_BARCODE = "BUNDLE_BARCODE";
+	private static final int ADD_BOOK_REQUEST_CODE = 2;
 	public DownloadBooksTask mTask;
 	
 	@Override
@@ -42,6 +48,42 @@ public class BookInfoActivity extends FragmentActivity implements BookInfoFragme
        mTask = new DownloadBooksTask(this);
        mTask.execute(mBarcode);
 	}
+	
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.add, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+    
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+    	// Handle action buttons
+        switch(item.getItemId()) {
+        case R.id.action_add:
+            if (mBook != null) {
+            	Intent intent = new Intent(this, BookAddActivity.class);
+            	intent.putExtra(BookAddActivity.BUNDLE_BOOK, mBook);
+                startActivityForResult(intent, ADD_BOOK_REQUEST_CODE);
+            } else {
+                Toast.makeText(this, R.string.app_not_available, Toast.LENGTH_LONG).show();
+            }
+            return true;
+        default:
+            return super.onOptionsItemSelected(item);
+        }
+    }
+    
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+    	if (requestCode == ADD_BOOK_REQUEST_CODE) {
+    		if (resultCode == RESULT_OK) {
+    			finish();
+    		}
+    	}
+    }
 	
 	
 	@Override

@@ -23,8 +23,8 @@ public class BookListFragment extends ListFragment
         	rootView = inflater.inflate(R.layout.fragment_book_list, container, false);
         }
 //        database = new JesperDatabase();
-        adapter = new BookListAdapter(getActivity(), database.getAllBooks());
-        setListAdapter(adapter);
+//        adapter = new BookListAdapter(getActivity(), database.getAllBooks());
+//        setListAdapter(adapter);
         return rootView;
     }
     

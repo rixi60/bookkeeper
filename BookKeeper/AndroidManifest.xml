@@ -34,7 +34,17 @@
 		    <meta-data
 		        android:name="android.support.PARENT_ACTIVITY"
 		        android:value="MainActivity" />
-    </activity>
+    	</activity>
+    	
+        <activity 
+            android:name="edu.kea.pm.bookkeeper.activity.BookAddActivity"
+            android:label="@string/activity_book_add_name"
+		    android:parentActivityName="BookInfoActivity" >
+		    <!-- Parent activity meta-data to support 4.0 and lower -->
+		    <meta-data
+		        android:name="android.support.PARENT_ACTIVITY"
+		        android:value="BookInfoActivity" />
+    	</activity>
         
     </application>
 
