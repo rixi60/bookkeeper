@@ -126,7 +126,8 @@ public class DatabaseImpl implements Database{
 		SQLiteDatabase databse = db.getWritableDatabase();
 		databse.delete(BookTable.TABLE_NAME, BookTable.ID + " = ?",
                 new String[] { String.valueOf(book.getBook_id()) });
-		
+		databse.delete(LoanTable.TABLE_NAME, LoanTable.BOOK_ID + " = ?",
+                new String[] { String.valueOf(book.getBook_id()) });
 	}
 
 
