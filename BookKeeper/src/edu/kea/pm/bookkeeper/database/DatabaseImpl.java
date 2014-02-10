@@ -48,34 +48,36 @@ public class DatabaseImpl implements Database{
 	}
 
 	@Override
-	public List<Book> getAllBooks() 
+	public Cursor getAllBooks() 
 	{
-		List<Book> books = new ArrayList<Book>();
+//		List<Book> books = new ArrayList<Book>();
         String selectQuery = "SELECT  * FROM " + BookTable.TABLE_NAME;
      
         SQLiteDatabase database = db.getReadableDatabase();
-        Cursor c = database.rawQuery(selectQuery, null);
+        Cursor c = database.query(BookTable.TABLE_NAME,
+        		new String[] {BookTable.ISBN, BookTable.DESCRIPTION},
+        		null, null, null, null, null);
      
-        // looping through all rows and adding to list
-        if (c.moveToFirst()) {
-            do {
-                Book b = new Book();
-                b.setBook_id(c.getLong(c.getColumnIndex(BookTable.ID)));
-                b.setIsbn(c.getString(c.getColumnIndex(BookTable.ISBN)));
-                b.setAuthors(c.getString(c.getColumnIndex(BookTable.ID)));
-                b.setDescription(c.getString(c.getColumnIndex(BookTable.ID)));
-                b.setLanguage(c.getString(c.getColumnIndex(BookTable.ID)));
-                b.setPageCount(c.getInt(c.getColumnIndex(BookTable.PAGE_COUNT)));
-                b.setPublished(c.getString(c.getColumnIndex(BookTable.PUBLISHED)));
-                b.setThumbnailURL(c.getString(c.getColumnIndex(BookTable.PUBLISHED)));
-                b.setComment(c.getString(c.getColumnIndex(BookTable.COMMENT)));
+//        // looping through all rows and adding to list
+//        if (c.moveToFirst()) {
+//            do {
+//                Book b = new Book();
+//                b.setBook_id(c.getLong(c.getColumnIndex(BookTable.ID)));
+//                b.setIsbn(c.getString(c.getColumnIndex(BookTable.ISBN)));
+//                b.setAuthors(c.getString(c.getColumnIndex(BookTable.ID)));
+//                b.setDescription(c.getString(c.getColumnIndex(BookTable.ID)));
+//                b.setLanguage(c.getString(c.getColumnIndex(BookTable.ID)));
+//                b.setPageCount(c.getInt(c.getColumnIndex(BookTable.PAGE_COUNT)));
+//                b.setPublished(c.getString(c.getColumnIndex(BookTable.PUBLISHED)));
+//                b.setThumbnailURL(c.getString(c.getColumnIndex(BookTable.PUBLISHED)));
+//                b.setComment(c.getString(c.getColumnIndex(BookTable.COMMENT)));
+//     
+//                // adding to todo list
+//                books.add(b);
+//            } while (c.moveToNext());
+//        }
      
-                // adding to todo list
-                books.add(b);
-            } while (c.moveToNext());
-        }
-     
-        return books;
+        return c;
 	}
  
 	@Override
@@ -96,7 +98,8 @@ public class DatabaseImpl implements Database{
 		if (book.getBook_id() > 0) {
 			// Update existing book:
 			database.update(BookTable.TABLE_NAME, values, BookTable.ID + " = ?", new String [] { String.valueOf(book.getBook_id()) } );
-	        if (!TextUtils.isEmpty(book.getLoaner())) {
+			database.delete(LoanTable.TABLE_NAME, LoanTable.BOOK_ID + " = ?", new String [] { String.valueOf(book.getBook_id()) });
+			if (!TextUtils.isEmpty(book.getLoaner())) {
 	            ContentValues valuesLoaner = new ContentValues();
 	            valuesLoaner.put(LoanTable.BOOK_ID, book.getBook_id());
 	            valuesLoaner.put(LoanTable.LOANER, book.getLoaner());

@@ -1,6 +1,5 @@
 package edu.kea.pm.bookkeeper.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -11,7 +10,6 @@ import android.widget.Toast;
 import edu.kea.pm.bookkeeper.R;
 import edu.kea.pm.bookkeeper.fragment.BookAddFragment;
 import edu.kea.pm.bookkeeper.fragment.BookAddFragment.BookAddFragmentController;
-import edu.kea.pm.bookkeeper.fragment.BookAddFragment;
 import edu.kea.pm.bookkeeper.model.Book;
 
 
