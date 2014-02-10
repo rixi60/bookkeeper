@@ -48,13 +48,15 @@ public class BookListAdapter extends CursorAdapter {
 
 		// TODO Bind your data to the views here
 		
-//		vh.title = cursor.getString(cursor.getColumnIndex(BookTable.TITLE);
-//		
-//		if ( TextUtils.isEmpty(cursor.getString(cursor.getColumnIndex(Loaner.NAME))) {
-//			vh.statusIndication.setBackgroundColor(Color.GREEN);
-//		} else {
-//			vh.statusIndication.setBackgroundColor(Color.RED);
-//		}
+		vh.title.setText(cursor.getString(cursor.getColumnIndex(BookTable.TITLE)));
+		vh.authors.setText(cursor.getString(cursor.getColumnIndex(BookTable.AUTHORS)));
+		vh.year.setText(cursor.getString(cursor.getColumnIndex(BookTable.PUBLISHED)));
+		
+		if ( TextUtils.isEmpty(cursor.getString(cursor.getColumnIndex(LoanTable.LOANER)))) {
+			vh.statusIndication.setBackgroundColor(Color.GREEN);
+		} else {
+			vh.statusIndication.setBackgroundColor(Color.RED);
+		}
 	}
 	@Override
 	public View newView(Context context, Cursor cursor, ViewGroup parent) {

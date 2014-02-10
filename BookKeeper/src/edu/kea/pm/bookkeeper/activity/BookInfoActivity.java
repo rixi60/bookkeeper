@@ -75,6 +75,13 @@ public class BookInfoActivity extends FragmentActivity implements BookInfoFragme
         }
     }
     
+    /* Called whenever we call invalidateOptionsMenu() */
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        menu.findItem(R.id.action_add).setVisible(mBook.getIsbn() != null);
+        return super.onPrepareOptionsMenu(menu);
+    }
+    
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {
@@ -102,6 +109,7 @@ public class BookInfoActivity extends FragmentActivity implements BookInfoFragme
 	@Override
 	public void onBusy()
 	{
+		invalidateOptionsMenu();
 		setProgressBarIndeterminateVisibility(Boolean.TRUE); 
 	}
 
@@ -132,6 +140,6 @@ public class BookInfoActivity extends FragmentActivity implements BookInfoFragme
 					});
 			builder.create().show();
 		}
+		invalidateOptionsMenu();
 	}
-	
 }

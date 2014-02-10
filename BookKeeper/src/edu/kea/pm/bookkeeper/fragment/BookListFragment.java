@@ -10,6 +10,7 @@ import android.widget.Toast;
 import edu.kea.pm.bookkeeper.R;
 import edu.kea.pm.bookkeeper.database.BookListAdapter;
 import edu.kea.pm.bookkeeper.database.Database;
+import edu.kea.pm.bookkeeper.database.DatabaseImpl;
 
 public class BookListFragment extends ListFragment
 {
@@ -22,9 +23,9 @@ public class BookListFragment extends ListFragment
         if (rootView == null) {
         	rootView = inflater.inflate(R.layout.fragment_book_list, container, false);
         }
-//        database = new JesperDatabase();
-//        adapter = new BookListAdapter(getActivity(), database.getAllBooks());
-//        setListAdapter(adapter);
+        database = new DatabaseImpl(getActivity());
+        adapter = new BookListAdapter(getActivity(), database.getAllBooks());
+        setListAdapter(adapter);
         return rootView;
     }
     

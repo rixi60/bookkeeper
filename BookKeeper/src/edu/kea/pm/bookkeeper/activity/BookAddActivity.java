@@ -8,6 +8,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 import edu.kea.pm.bookkeeper.R;
+import edu.kea.pm.bookkeeper.database.Database;
+import edu.kea.pm.bookkeeper.database.DatabaseImpl;
 import edu.kea.pm.bookkeeper.fragment.BookAddFragment;
 import edu.kea.pm.bookkeeper.fragment.BookAddFragment.BookAddFragmentController;
 import edu.kea.pm.bookkeeper.model.Book;
@@ -17,6 +19,7 @@ public class BookAddActivity extends FragmentActivity implements BookAddFragment
 {
 	private Book mBook;
 	private BookAddFragment mFragment;
+	private Database mDatabase;
 	public static final String BUNDLE_BOOK = "BUNDLE_BOOK";
 	
 	@Override
@@ -26,6 +29,7 @@ public class BookAddActivity extends FragmentActivity implements BookAddFragment
 		setContentView(R.layout.activity_single_frame_container);
 		
 		mBook = (Book) getIntent().getSerializableExtra(BUNDLE_BOOK);
+		mDatabase = new DatabaseImpl(this);
 		
 		mFragment = new BookAddFragment();
 		mFragment.setArguments(bundle);
@@ -55,6 +59,7 @@ public class BookAddActivity extends FragmentActivity implements BookAddFragment
         switch(item.getItemId()) {
         case R.id.action_save:
         	Toast.makeText(this, R.string.book_saves, Toast.LENGTH_LONG).show();
+        	mDatabase.saveBook(mBook);
             setResult(RESULT_OK);
             finish();
             return true;

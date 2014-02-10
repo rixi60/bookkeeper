@@ -7,6 +7,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteQueryBuilder;
 import android.text.TextUtils;
 import edu.kea.pm.bookkeeper.model.Book;
 
@@ -50,32 +51,25 @@ public class DatabaseImpl implements Database{
 	@Override
 	public Cursor getAllBooks() 
 	{
-//		List<Book> books = new ArrayList<Book>();
-        String selectQuery = "SELECT  * FROM " + BookTable.TABLE_NAME;
-     
+        String[] columns = new String[] {
+        		BookTable.TABLE_NAME+"."+BookTable.ID,
+        		BookTable.AUTHORS,
+        		BookTable.COMMENT,
+        		BookTable.DESCRIPTION,
+        		BookTable.IMAGE,
+        		BookTable.ISBN,
+        		BookTable.LANGUAGE,
+        		BookTable.PAGE_COUNT,
+        		BookTable.PUBLISHED,
+        		BookTable.TITLE,
+        		LoanTable.LOANER,
+        		LoanTable.TIMESTAMP
+        };
+        
         SQLiteDatabase database = db.getReadableDatabase();
-        Cursor c = database.query(BookTable.TABLE_NAME,
-        		new String[] {BookTable.ISBN, BookTable.DESCRIPTION},
-        		null, null, null, null, null);
-     
-//        // looping through all rows and adding to list
-//        if (c.moveToFirst()) {
-//            do {
-//                Book b = new Book();
-//                b.setBook_id(c.getLong(c.getColumnIndex(BookTable.ID)));
-//                b.setIsbn(c.getString(c.getColumnIndex(BookTable.ISBN)));
-//                b.setAuthors(c.getString(c.getColumnIndex(BookTable.ID)));
-//                b.setDescription(c.getString(c.getColumnIndex(BookTable.ID)));
-//                b.setLanguage(c.getString(c.getColumnIndex(BookTable.ID)));
-//                b.setPageCount(c.getInt(c.getColumnIndex(BookTable.PAGE_COUNT)));
-//                b.setPublished(c.getString(c.getColumnIndex(BookTable.PUBLISHED)));
-//                b.setThumbnailURL(c.getString(c.getColumnIndex(BookTable.PUBLISHED)));
-//                b.setComment(c.getString(c.getColumnIndex(BookTable.COMMENT)));
-//     
-//                // adding to todo list
-//                books.add(b);
-//            } while (c.moveToNext());
-//        }
+        SQLiteQueryBuilder query = new SQLiteQueryBuilder();
+        query.setTables(BookTable.TABLE_NAME+" LEFT JOIN "+LoanTable.TABLE_NAME+" ON ("+BookTable.TABLE_NAME+"."+BookTable.ID+" = "+LoanTable.TABLE_NAME+"."+LoanTable.BOOK_ID+")");
+        Cursor c = query.query(database, columns, null, null, null, null, BookTable.TITLE + " DESC");
      
         return c;
 	}
@@ -89,6 +83,7 @@ public class DatabaseImpl implements Database{
         values.put(BookTable.ISBN, book.getIsbn());
         values.put(BookTable.TITLE, book.getTitle());
         values.put(BookTable.DESCRIPTION, book.getDescription());
+        values.put(BookTable.AUTHORS, book.getAuthors());
         values.put(BookTable.LANGUAGE, book.getLanguage());
         values.put(BookTable.PAGE_COUNT, book.getPageCount());
         values.put(BookTable.COMMENT, book.getComment());
