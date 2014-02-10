@@ -1,11 +1,8 @@
 package edu.kea.pm.bookkeeper.database;
 
-import java.util.List;
-
-import edu.kea.pm.bookkeeper.model.Book;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
+import edu.kea.pm.bookkeeper.model.Book;
 
 public class DatabaseImpl implements Database{
 	
@@ -21,7 +18,7 @@ public class DatabaseImpl implements Database{
 	}
 
 	@Override
-	public List<Book> getAllBooks() {
+	public Cursor getAllBooks() {
 		return db.getAllBooks();
 	}
  
