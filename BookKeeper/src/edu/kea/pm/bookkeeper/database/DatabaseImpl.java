@@ -20,7 +20,31 @@ public class DatabaseImpl implements Database{
 	
 	@Override
 	public Book getBookWithId(String id) {
-		return db.getBook(Long.parseLong(id));
+		
+        SQLiteDatabase database = db.getReadableDatabase();
+        
+        String selectQuery = "SELECT  * FROM " + BookTable.TABLE_NAME + " WHERE "
+                + BookTable.ID + " = " + id;
+     
+        Cursor c = database.rawQuery(selectQuery, null);
+     
+        if (c != null)
+            c.moveToFirst();
+     
+        Book b = new Book();
+        b.setBook_id(c.getLong(c.getColumnIndex(BookTable.ID)));
+        b.setIsbn(c.getString(c.getColumnIndex(BookTable.ISBN)));
+        b.setAuthors(c.getString(c.getColumnIndex(BookTable.ID)));
+        b.setDescription(c.getString(c.getColumnIndex(BookTable.ID)));
+        b.setLanguage(c.getString(c.getColumnIndex(BookTable.ID)));
+        b.setPageCount(c.getInt(c.getColumnIndex(BookTable.PAGE_COUNT)));
+        b.setPublished(c.getString(c.getColumnIndex(BookTable.PUBLISHED)));
+        b.setThumbnailURL(c.getString(c.getColumnIndex(BookTable.PUBLISHED)));
+        b.setComment(c.getString(c.getColumnIndex(BookTable.COMMENT)));
+     
+        c.close();
+        return b;
+		
 	}
 
 	@Override
@@ -59,26 +83,31 @@ public class DatabaseImpl implements Database{
 	{
 		SQLiteDatabase database = db.getWritableDatabase();
 		
+		ContentValues values = new ContentValues();
+        values.put(BookTable.ISBN, book.getIsbn());
+        values.put(BookTable.TITLE, book.getTitle());
+        values.put(BookTable.DESCRIPTION, book.getDescription());
+        values.put(BookTable.LANGUAGE, book.getLanguage());
+        values.put(BookTable.PAGE_COUNT, book.getPageCount());
+        values.put(BookTable.COMMENT, book.getComment());
+        values.put(BookTable.IMAGE, book.getThumbnailURL());
+        values.put(BookTable.PUBLISHED, book.getPublished());
+		
 		if (book.getBook_id() > 0) {
 			// Update existing book:
 			database.update(BookTable.TABLE_NAME, values, BookTable.ID + " = ?", new String [] { String.valueOf(book.getBook_id()) } );
+	        if (!TextUtils.isEmpty(book.getLoaner())) {
+	            ContentValues valuesLoaner = new ContentValues();
+	            valuesLoaner.put(LoanTable.BOOK_ID, book.getBook_id());
+	            valuesLoaner.put(LoanTable.LOANER, book.getLoaner());
+	            database.insert(LoanTable.TABLE_NAME, null, valuesLoaner);
+	        }
 		} else {
 			// Create new book:
-			ContentValues values = new ContentValues();
-	        values.put(BookTable.ISBN, book.getIsbn());
-	        values.put(BookTable.TITLE, book.getTitle());
-	        values.put(BookTable.DESCRIPTION, book.getDescription());
-	        values.put(BookTable.LANGUAGE, book.getLanguage());
-	        values.put(BookTable.PAGE_COUNT, book.getPageCount());
-	        values.put(BookTable.COMMENT, book.getComment());
-	        values.put(BookTable.IMAGE, book.getThumbnailURL());
-	        values.put(BookTable.PUBLISHED, book.getPublished());
-	        
+
 	        // insert row
 	        long book_id = database.insert(BookTable.TABLE_NAME, null, values);
 	        
-	        
-
 	        if (!TextUtils.isEmpty(book.getLoaner())) {
 	            ContentValues valuesLoaner = new ContentValues();
 	            valuesLoaner.put(LoanTable.BOOK_ID, book_id);
