@@ -50,7 +50,7 @@ public class BookAPI
 						// ISBN
 						try
 						{
-							String isbn2 = volumeInfo.getJSONArray("industryIdentifiers").getJSONObject(0).getString("identifier");
+							String isbn2 = volumeInfo.getJSONArray("industryIdentifiers").getJSONObject(1).getString("identifier");
 							book1.setIsbn(isbn2);
 						}
 						catch (Exception e)	{ }

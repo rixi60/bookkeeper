@@ -47,7 +47,7 @@ public class BookAddFragment extends Fragment
         mDescription = (EditText) rootView.findViewById(R.id.editDesc);
         mPages = (EditText) rootView.findViewById(R.id.editNumberOfPages);
         mPublished = (EditText) rootView.findViewById(R.id.editPublished);
-        mCoverImageUrl = (EditText) rootView.findViewById(R.id.editComments);
+        mCoverImageUrl = (EditText) rootView.findViewById(R.id.editCoverImgThumbnailURL);
         mComment = (EditText) rootView.findViewById(R.id.editComments);
         updateBook();
         return rootView;
