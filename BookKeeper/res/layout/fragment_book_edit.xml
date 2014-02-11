@@ -39,6 +39,8 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Title"
+            android:singleLine="true"
+            android:nextFocusDown="@+id/editAuthor"
             android:layout_marginLeft="5pt"
             android:layout_marginRight="5pt" >
             <requestFocus />
@@ -58,6 +60,8 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Author"
+            android:singleLine="true"
+            android:nextFocusDown="@+id/Language"
             android:layout_marginLeft="5pt"
             android:layout_marginRight="5pt" >
         </EditText>
@@ -76,6 +80,8 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Language"
+            android:singleLine="true"
+            android:nextFocusDown="@+id/editDesc"
             android:layout_marginLeft="5pt"
             android:layout_marginRight="5pt" >
         </EditText>
@@ -112,6 +118,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:singleLine="true"
+            android:nextFocusDown="@+id/editPublished"
             android:hint="Number of Pages"
             android:inputType="numberSigned"
             android:layout_marginLeft="5pt"
@@ -132,6 +140,8 @@
             android:layout_height="wrap_content"
             android:hint="Published"
             android:ems="10"
+            android:singleLine="true"
+            android:nextFocusDown="@+id/editCoverImgThumbnailURL"
             android:layout_marginLeft="5pt"
             android:layout_marginRight="5pt" >
         </EditText>
@@ -151,6 +161,8 @@
             android:ems="10"
             android:inputType="textUri"
             android:hint="Cover Image URL"
+            android:singleLine="true"
+            android:nextFocusDown="@+id/editComments"
             android:layout_marginLeft="5pt"
             android:layout_marginRight="5pt" >
         </EditText>

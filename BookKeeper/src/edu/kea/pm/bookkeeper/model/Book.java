@@ -7,6 +7,7 @@ import android.text.TextUtils;
 
 public class Book implements Serializable
 {
+
 	private static final long serialVersionUID = -399086889791219587L;
 
 	public final static String BOOK_BUNDLE_KEY = "BOOK_BUNDLE_KEY";
@@ -178,5 +179,11 @@ public class Book implements Serializable
 		this.book_id = book_id;
 	}
 	
+	@Override
+	public String toString()
+	{
+		return "Book [book_id=" + book_id + ", isbn=" + isbn + ", title=" + title + ", authors=" + authors + ", description=" + description + ", language=" + language + ", pageCount=" + pageCount + ", published=" + published + ", thumbnailURL="
+				+ thumbnailURL + ", loaner=" + loaner + ", comment=" + comment + "]";
+	}
 	
 }

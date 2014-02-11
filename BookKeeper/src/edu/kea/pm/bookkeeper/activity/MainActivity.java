@@ -25,6 +25,8 @@ import com.google.zxing.integration.android.IntentResult;
 
 import edu.kea.pm.bookkeeper.R;
 import edu.kea.pm.bookkeeper.fragment.BookListFragment;
+import edu.kea.pm.bookkeeper.fragment.LoanerPopupFragment;
+import edu.kea.pm.bookkeeper.fragment.LoanerPopupFragment.LoanerPopupFragmentListener;
 import edu.kea.pm.bookkeeper.fragment.LoopUpFragment;
 
 public class MainActivity extends FragmentActivity {
@@ -201,4 +203,5 @@ public class MainActivity extends FragmentActivity {
     			"No scan data received!", Toast.LENGTH_SHORT);
     	toast.show();
     }
+    
 }

@@ -7,8 +7,7 @@ public interface Database
 {
 	
 	//Getters
-	//TODO: Jesper.
-	public Book getBookWithId(String id);
+	public Book getBookWithId(int id);
 	public Cursor getAllBooks();
 
 	//Setters:

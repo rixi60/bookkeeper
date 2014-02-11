@@ -1,8 +1,5 @@
 package edu.kea.pm.bookkeeper.database;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -20,29 +17,43 @@ public class DatabaseImpl implements Database{
 	}
 	
 	@Override
-	public Book getBookWithId(String id) {
+	public Book getBookWithId(int id) {
 		
         SQLiteDatabase database = db.getReadableDatabase();
         
-        String selectQuery = "SELECT  * FROM " + BookTable.TABLE_NAME + " WHERE "
-                + BookTable.ID + " = " + id;
-     
-        Cursor c = database.rawQuery(selectQuery, null);
-     
-        if (c != null)
-            c.moveToFirst();
-     
-        Book b = new Book();
-        b.setBook_id(c.getLong(c.getColumnIndex(BookTable.ID)));
-        b.setIsbn(c.getString(c.getColumnIndex(BookTable.ISBN)));
-        b.setAuthors(c.getString(c.getColumnIndex(BookTable.ID)));
-        b.setDescription(c.getString(c.getColumnIndex(BookTable.ID)));
-        b.setLanguage(c.getString(c.getColumnIndex(BookTable.ID)));
-        b.setPageCount(c.getInt(c.getColumnIndex(BookTable.PAGE_COUNT)));
-        b.setPublished(c.getString(c.getColumnIndex(BookTable.PUBLISHED)));
-        b.setThumbnailURL(c.getString(c.getColumnIndex(BookTable.PUBLISHED)));
-        b.setComment(c.getString(c.getColumnIndex(BookTable.COMMENT)));
-     
+        String[] columns = new String[] {
+        		BookTable.TABLE_NAME+"."+BookTable.ID,
+        		BookTable.AUTHORS,
+        		BookTable.COMMENT,
+        		BookTable.DESCRIPTION,
+        		BookTable.IMAGE,
+        		BookTable.ISBN,
+        		BookTable.LANGUAGE,
+        		BookTable.PAGE_COUNT,
+        		BookTable.PUBLISHED,
+        		BookTable.TITLE,
+        		LoanTable.LOANER,
+        };
+        
+        SQLiteQueryBuilder query = new SQLiteQueryBuilder();
+        query.setTables(BookTable.TABLE_NAME+" LEFT JOIN "+LoanTable.TABLE_NAME+" ON ("+BookTable.TABLE_NAME+"."+BookTable.ID+" = "+LoanTable.TABLE_NAME+"."+LoanTable.BOOK_ID+")");
+        Cursor c = query.query(database, columns, BookTable.TABLE_NAME+"."+BookTable.ID+" = ?", new String[] {String.valueOf(id)}, null, null, BookTable.TITLE + " DESC");
+        
+        Book b = null;
+        if (c.moveToFirst()) {
+        	b = new Book();
+        	b.setBook_id(c.getInt(c.getColumnIndex(BookTable.ID)));
+        	b.setTitle(c.getString(c.getColumnIndex(BookTable.TITLE)));
+        	b.setIsbn(c.getString(c.getColumnIndex(BookTable.ISBN)));
+        	b.setAuthors(c.getString(c.getColumnIndex(BookTable.AUTHORS)));
+        	b.setDescription(c.getString(c.getColumnIndex(BookTable.DESCRIPTION)));
+        	b.setLanguage(c.getString(c.getColumnIndex(BookTable.LANGUAGE)));
+        	b.setPageCount(c.getInt(c.getColumnIndex(BookTable.PAGE_COUNT)));
+        	b.setPublished(c.getString(c.getColumnIndex(BookTable.PUBLISHED)));
+        	b.setThumbnailURL(c.getString(c.getColumnIndex(BookTable.PUBLISHED)));
+        	b.setComment(c.getString(c.getColumnIndex(BookTable.COMMENT)));
+        	b.setLoaner(c.getString(c.getColumnIndex(LoanTable.LOANER)));
+        }
         c.close();
         return b;
 		
