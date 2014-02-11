@@ -1,6 +1,7 @@
 package edu.kea.pm.bookkeeper.fragment;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
@@ -30,6 +31,10 @@ public class BookSavedInfoFragment extends Fragment
 
 
 	private BookSavedInfoFragmentController mListener;
+	private View mStatus;
+	private TextView mComment;
+	private TextView mLoaner;
+	private TextView mLoanerLabel;
 
     public BookSavedInfoFragment() {
         // Empty constructor required for fragment subclasses
@@ -37,14 +42,18 @@ public class BookSavedInfoFragment extends Fragment
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_book_info, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_book_info_status, container, false);
         mIsbn = (TextView) rootView.findViewById(R.id.isbn);
+        mStatus = rootView.findViewById(R.id.status);
         mTitle = (TextView) rootView.findViewById(R.id.title);
         mAuthor = (TextView) rootView.findViewById(R.id.author);
         mLanguage = (TextView) rootView.findViewById(R.id.language);
         mDescription = (TextView) rootView.findViewById(R.id.desc);
         mPages = (TextView) rootView.findViewById(R.id.pages);
         mPublished = (TextView) rootView.findViewById(R.id.published);
+        mComment = (TextView) rootView.findViewById(R.id.note);
+        mLoaner = (TextView) rootView.findViewById(R.id.loaner);
+        mLoanerLabel = (TextView) rootView.findViewById(R.id.labelLoaner);
         mCoverImage = (ImageView) rootView.findViewById(R.id.imageCover);
         updateBook();
         return rootView;
@@ -52,7 +61,9 @@ public class BookSavedInfoFragment extends Fragment
     
     public void updateBook() {
     	Book book = mListener.getBook();
-    	String noInfo = getString(R.string.generic_missing_info);
+    	String noInfo = "";
+    	boolean loanedOut = TextUtils.isEmpty(book.getLoaner());
+    	mStatus.setBackgroundColor(loanedOut ? Color.GREEN : Color.RED);
     	mIsbn.setText(book.getIsbn() != null ? book.getIsbn() : noInfo);
     	mTitle.setText(book.getTitle() != null ? book.getTitle() : noInfo);
     	mAuthor.setText(book.getAuthors() != null ? book.getAuthors().toString() : noInfo);
@@ -60,7 +71,11 @@ public class BookSavedInfoFragment extends Fragment
     	mDescription.setText(book.getDescription() != null ? book.getDescription() : noInfo);
     	mPages.setText(book.getPageCount() > 0 ? String.valueOf(book.getPageCount()) : noInfo);
     	mPublished.setText(!TextUtils.isEmpty(book.getPublished()) ? book.getPublished() : noInfo);
-//    	mCoverImage // TODO: Get image from URL
+    	mComment.setText(!TextUtils.isEmpty(book.getComment()) ? book.getComment() : noInfo);
+    	mLoaner.setText(!TextUtils.isEmpty(book.getLoaner()) ? book.getLoaner() : noInfo);
+    	mLoaner.setVisibility(!loanedOut ? View.VISIBLE : View.GONE);
+    	mLoanerLabel.setVisibility(!loanedOut ? View.VISIBLE : View.GONE);
+    	//    	mCoverImage // TODO: Get image from URL
     }
     
     

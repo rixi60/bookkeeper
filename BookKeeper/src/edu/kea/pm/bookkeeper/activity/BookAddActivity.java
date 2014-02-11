@@ -59,7 +59,7 @@ public class BookAddActivity extends FragmentActivity implements BookAddFragment
         switch(item.getItemId()) {
         case R.id.action_save:
         	Toast.makeText(this, R.string.book_saves, Toast.LENGTH_LONG).show();
-        	mDatabase.saveBook(mBook);
+        	mDatabase.saveBook(mFragment.getBookInfo());
             setResult(RESULT_OK);
             finish();
             return true;

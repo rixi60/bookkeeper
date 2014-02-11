@@ -64,7 +64,24 @@ public class BookAddFragment extends Fragment
     	mPages.setText(book.getPageCount() > 0 ? String.valueOf(book.getPageCount()) : noInfo);
     	mPublished.setText(!TextUtils.isEmpty(book.getPublished()) ? book.getPublished() : noInfo);
     	mCoverImageUrl.setText(!TextUtils.isEmpty(book.getThumbnailURL()) ? book.getThumbnailURL() : noInfo);
+    	mComment.setText(book.getComment() != null ? book.getComment() : noInfo);
 //    	mCoverImage // TODO: Get image from URL
+    }
+    
+    public Book getBookInfo() {
+    	Book book = mListener.getBook();
+    	Book newBook = new Book();
+    	newBook.setBook_id(book.getBook_id());
+    	newBook.setLoaner(book.getLoaner());
+    	newBook.setAuthors(mAuthor.getText().toString());
+    	newBook.setTitle(mTitle.getText().toString());
+    	newBook.setLanguage(mLanguage.getText().toString());
+    	newBook.setDescription(mDescription.getText().toString());
+    	newBook.setPageCount(Integer.parseInt(mPages.getText().toString()));
+    	newBook.setPublished(mPublished.getText().toString());
+    	newBook.setThumbnailURL(mCoverImageUrl.getText().toString());
+    	newBook.setComment(mComment.getText().toString());
+    	return newBook;
     }
     
     

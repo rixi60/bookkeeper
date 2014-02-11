@@ -3,10 +3,12 @@
           android:icon="@drawable/ic_action_edit"
           android:title="@string/action_edit"
           android:showAsAction="ifRoom|withText" />
+    
     <item android:id="@+id/action_delete"
           android:icon="@drawable/ic_action_discard"
           android:title="@string/action_delete"
           android:showAsAction="ifRoom|withText" />
+    
     <item android:id="@+id/action_loan_status_edit"
           android:icon="@drawable/ic_action_labels"
           android:title="@string/action_edit_loan"

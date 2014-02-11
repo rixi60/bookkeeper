@@ -21,10 +21,11 @@
     <string name="app_not_available">Sorry, there\'s no web browser available</string>
     <string name="book_saves">Book was saved</string>
     <string name="enter_loaner">Enter or delete loaner</string>
+    <string name="delete_confirm">Are you sure, that you want to delete this book from your library?</string>
     
     <string name="generic_missing_info">-</string>
     <string name="activity_book_info_name">Book info</string>
-    <string name="activity_book_add_name">Add book</string>
+    <string name="activity_book_add_name">Save book info</string>
 
 
 </resources>

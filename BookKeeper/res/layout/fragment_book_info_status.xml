@@ -31,7 +31,7 @@
                    android:textAppearance="?android:attr/textAppearanceSmall" />
 
                <TextView
-                   android:id="@+id/title"
+                   android:id="@+id/isbn"
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
                    android:layout_marginLeft="10pt"
@@ -168,6 +168,7 @@
             android:textAppearance="?android:attr/textAppearanceMedium" />
         
         <TextView
+            android:id="@+id/labelLoaner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5pt"
@@ -176,7 +177,7 @@
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <TextView
-            android:id="@+id/note"
+            android:id="@+id/loaner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10pt"
@@ -192,7 +193,7 @@
             android:layout_marginTop="5pt"
             android:text="Cover Image"
             android:textAppearance="?android:attr/textAppearanceSmall" />
-
+        
         <ImageView
             android:id="@+id/imageCover"
             android:layout_width="wrap_content"

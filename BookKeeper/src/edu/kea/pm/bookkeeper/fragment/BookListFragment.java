@@ -1,21 +1,26 @@
 package edu.kea.pm.bookkeeper.fragment;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListView;
-import android.widget.Toast;
 import edu.kea.pm.bookkeeper.R;
+import edu.kea.pm.bookkeeper.activity.BookSavedInfoActivity;
 import edu.kea.pm.bookkeeper.database.BookListAdapter;
 import edu.kea.pm.bookkeeper.database.BookTable;
 import edu.kea.pm.bookkeeper.database.Database;
 import edu.kea.pm.bookkeeper.database.DatabaseImpl;
 import edu.kea.pm.bookkeeper.model.Book;
 
-public class BookListFragment extends ListFragment
+public class BookListFragment extends ListFragment implements OnItemLongClickListener
 {
 	View rootView;
 	BookListAdapter adapter;
@@ -34,10 +39,15 @@ public class BookListFragment extends ListFragment
     @Override
     public void onResume()
     {
+    	updateList();
+    	getListView().setOnItemLongClickListener(this);
+    	super.onResume();
+    }
+    
+    private void updateList() {
     	cursor = database.getAllBooks();
     	adapter = new BookListAdapter(getActivity(), cursor);
     	setListAdapter(adapter);
-    	super.onResume();
     }
     
     @Override
@@ -45,19 +55,28 @@ public class BookListFragment extends ListFragment
       super.onListItemClick(l, v, pos, id);
       int bookId = cursor.getInt(cursor.getColumnIndex(BookTable.ID));
       Book book = database.getBookWithId(bookId);
-      Toast.makeText(getActivity(), "Item " + pos + " was clicked - Book = "+book, Toast.LENGTH_SHORT).show();
+      Intent intent = new Intent(getActivity(), BookSavedInfoActivity.class);
+      intent.putExtra(BookSavedInfoActivity.BUNDLE_BOOK, book);
+      getActivity().startActivity(intent);
     }
-    
-    @Override
-    public void onSaveInstanceState(Bundle outState)
-    {
-    	// TODO Auto-generated method stub
-    	super.onSaveInstanceState(outState);
-    }
-    
-    private void onRestoreInstaceState()
-	{
-		// TODO Auto-generated method stub
 
+	@Override
+	public boolean onItemLongClick(AdapterView<?> arg0, View v, int pos, long id)
+	{
+		int bookId = cursor.getInt(cursor.getColumnIndex(BookTable.ID));
+		final Book book = database.getBookWithId(bookId);
+		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+		builder.setTitle(R.string.action_delete)
+		.setMessage(R.string.delete_confirm)
+		.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int id) {
+				database.deleteBook(book);
+				updateList();
+			}
+		})
+		.setNegativeButton(android.R.string.cancel, null);
+		builder.create().show();
+		return true;
 	}
+    
 }

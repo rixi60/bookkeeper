@@ -68,6 +68,8 @@ public class LoanerPopupFragment extends DialogFragment
 				{
 					if (listener != null) {
 						listener.onOK(loaner_EditText.getText().toString().trim());
+				        InputMethodManager inputMethodManager = (InputMethodManager)  getActivity().getSystemService(FragmentActivity.INPUT_METHOD_SERVICE);
+				        inputMethodManager.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY,0);
 						LoanerPopupFragment.this.dismiss();
 					}
 				}
