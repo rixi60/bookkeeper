@@ -132,7 +132,7 @@ public class BookInfoActivity extends FragmentActivity implements BookInfoFragme
 							BookInfoActivity.this.finish();
 						}
 					})
-					.setMessage("The book with ISBN/barcode "+mBarcode+" could not be found.\nCheck the ISBN and your internet connection")
+					.setMessage(getString(R.string.book_not_found, mBarcode))
 					.setNegativeButton(android.R.string.ok, new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int id) {
 							BookInfoActivity.this.finish();

@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import edu.kea.pm.bookkeeper.R;
@@ -24,9 +25,9 @@ public class BookListAdapter extends CursorAdapter {
 		public final TextView title;
 		public final TextView authors;
 		public final TextView year;
-		public final View statusIndication;
+		public final ImageView statusIndication;
 	
-		private ViewHolder(TextView title, TextView authors, TextView year, View statusIndication) {
+		private ViewHolder(TextView title, TextView authors, TextView year, ImageView statusIndication) {
 			this.title = title;
 			this.authors = authors;
 			this.year = year;
@@ -37,7 +38,7 @@ public class BookListAdapter extends CursorAdapter {
 			TextView title = (TextView)rootView.findViewById( R.id.title );
 			TextView authors = (TextView)rootView.findViewById( R.id.authors );
 			TextView year = (TextView)rootView.findViewById( R.id.year );
-			View statusIndication = (View)rootView.findViewById( R.id.status_indication );
+			ImageView statusIndication = (ImageView)rootView.findViewById( R.id.status_indication );
 			return new ViewHolder( title, authors, year, statusIndication );
 		}
 	}
@@ -53,9 +54,9 @@ public class BookListAdapter extends CursorAdapter {
 		vh.year.setText(cursor.getString(cursor.getColumnIndex(BookTable.PUBLISHED)));
 		
 		if ( TextUtils.isEmpty(cursor.getString(cursor.getColumnIndex(LoanTable.LOANER)))) {
-			vh.statusIndication.setBackgroundColor(Color.GREEN);
+			vh.statusIndication.setImageResource(R.drawable.book_green);
 		} else {
-			vh.statusIndication.setBackgroundColor(Color.RED);
+			vh.statusIndication.setImageResource(R.drawable.book_red);
 		}
 	}
 	@Override

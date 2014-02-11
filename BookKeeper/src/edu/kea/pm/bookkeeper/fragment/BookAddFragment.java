@@ -73,6 +73,7 @@ public class BookAddFragment extends Fragment
     	Book newBook = new Book();
     	newBook.setBook_id(book.getBook_id());
     	newBook.setLoaner(book.getLoaner());
+    	newBook.setIsbn(book.getIsbn());
     	newBook.setAuthors(mAuthor.getText().toString());
     	newBook.setTitle(mTitle.getText().toString());
     	newBook.setLanguage(mLanguage.getText().toString());

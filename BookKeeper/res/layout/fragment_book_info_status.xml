@@ -40,13 +40,13 @@
                    android:textAppearance="?android:attr/textAppearanceMedium" />
            </LinearLayout>
 
-           <View
+           <ImageView
                android:id="@+id/status"
-               android:layout_width="10pt"
-               android:layout_height="15pt"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
                android:layout_marginRight="5pt"
                android:layout_alignParentRight="true"
-               android:background="#FF0000" />
+			   android:src="@drawable/book_green" />
        </RelativeLayout>
 
         <TextView

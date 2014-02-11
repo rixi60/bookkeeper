@@ -16,25 +16,25 @@ import edu.kea.pm.bookkeeper.model.Book;
 public class BookSavedInfoFragment extends Fragment
 {
 	
-	TextView mIsbn;
-	TextView mTitle;
-	TextView mAuthor;
-	TextView mLanguage;
-	TextView mDescription;
-	TextView mPages;
-	TextView mPublished;
-	ImageView mCoverImage;
+	private TextView mIsbn;
+	private TextView mTitle;
+	private TextView mAuthor;
+	private TextView mLanguage;
+	private TextView mDescription;
+	private TextView mPages;
+	private TextView mPublished;
+	private ImageView mCoverImage;
+	private ImageView mStatus;
+	private TextView mComment;
+	private TextView mLoaner;
+	private TextView mLoanerLabel;
+	private BookSavedInfoFragmentController mListener;
 	
 	public interface BookSavedInfoFragmentController {
 		public Book getBook();
 	}
 
 
-	private BookSavedInfoFragmentController mListener;
-	private View mStatus;
-	private TextView mComment;
-	private TextView mLoaner;
-	private TextView mLoanerLabel;
 
     public BookSavedInfoFragment() {
         // Empty constructor required for fragment subclasses
@@ -44,7 +44,7 @@ public class BookSavedInfoFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_book_info_status, container, false);
         mIsbn = (TextView) rootView.findViewById(R.id.isbn);
-        mStatus = rootView.findViewById(R.id.status);
+        mStatus = (ImageView) rootView.findViewById(R.id.status);
         mTitle = (TextView) rootView.findViewById(R.id.title);
         mAuthor = (TextView) rootView.findViewById(R.id.author);
         mLanguage = (TextView) rootView.findViewById(R.id.language);
@@ -63,7 +63,7 @@ public class BookSavedInfoFragment extends Fragment
     	Book book = mListener.getBook();
     	String noInfo = "";
     	boolean loanedOut = TextUtils.isEmpty(book.getLoaner());
-    	mStatus.setBackgroundColor(loanedOut ? Color.GREEN : Color.RED);
+    	mStatus.setImageResource(loanedOut ? R.drawable.book_green : R.drawable.book_red);
     	mIsbn.setText(book.getIsbn() != null ? book.getIsbn() : noInfo);
     	mTitle.setText(book.getTitle() != null ? book.getTitle() : noInfo);
     	mAuthor.setText(book.getAuthors() != null ? book.getAuthors().toString() : noInfo);

@@ -32,14 +32,14 @@
         android:layout_alignParentTop="true"
         android:text="Year" />
 
-    <View
+    <ImageView
         android:id="@+id/status_indication"
-        android:layout_width="20dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/authors"
         android:layout_alignParentRight="true"
         android:layout_alignTop="@+id/authors"
         android:layout_marginRight="20dp"
-        android:background="#FF0000" />
+        android:src="@drawable/book_red" />
 
 </RelativeLayout>
