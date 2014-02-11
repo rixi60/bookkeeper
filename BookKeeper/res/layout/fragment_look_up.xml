@@ -3,23 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <TextView
-        android:id="@+id/isbnLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="44dp"
-        android:text="ISBN/Barcode:"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
     <EditText
         android:id="@+id/isbnEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/isbnLabel"
-        android:layout_toRightOf="@+id/isbnLabel"
+        android:layout_centerInParent="true"
         android:ems="10"
         android:imeOptions="actionSearch"
         android:inputType="number" >
@@ -33,6 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_alignRight="@+id/isbnEditText"
         android:layout_below="@+id/isbnEditText"
+        android:drawableLeft="@drawable/action_search"
         android:layout_marginTop="16dp"
         android:text="Look up" />
 
@@ -45,5 +34,28 @@
         android:drawableLeft="@drawable/icon_barcode"
         android:gravity="left|center_vertical"
         android:text="Scan" />
+
+    <TextView
+        android:id="@+id/isbnLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/isbnEditText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="40dp"
+        android:gravity="center"
+        android:text="Enter ISBN or barcode"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/isbnLabel"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="30dp"
+        android:text="Online book information"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#121288"
+        android:textSize="30sp" />
 
 </RelativeLayout>
