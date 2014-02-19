@@ -29,31 +29,31 @@
         <activity 
             android:name="edu.kea.pm.bookkeeper.activity.BookInfoActivity"
             android:label="@string/activity_book_info_name"
-		    android:parentActivityName="MainActivity" >
+		    android:parentActivityName="edu.kea.pm.bookkeeper.activity.MainActivity" >
 		    <!-- Parent activity meta-data to support 4.0 and lower -->
 		    <meta-data
 		        android:name="android.support.PARENT_ACTIVITY"
-		        android:value="MainActivity" />
+		        android:value="edu.kea.pm.bookkeeper.activity.MainActivity" />
     	</activity>
     	
         <activity 
             android:name="edu.kea.pm.bookkeeper.activity.BookAddActivity"
             android:label="@string/activity_book_add_name"
-		    android:parentActivityName="BookInfoActivity" >
+		    android:parentActivityName="edu.kea.pm.bookkeeper.activity.BookInfoActivity" >
 		    <!-- Parent activity meta-data to support 4.0 and lower -->
 		    <meta-data
 		        android:name="android.support.PARENT_ACTIVITY"
-		        android:value="BookInfoActivity" />
+		        android:value="edu.kea.pm.bookkeeper.activity.BookInfoActivity" />
     	</activity>
     	
         <activity 
             android:name="edu.kea.pm.bookkeeper.activity.BookSavedInfoActivity"
             android:label="@string/activity_book_info_name"
-		    android:parentActivityName="MainActivity" >
+		    android:parentActivityName="edu.kea.pm.bookkeeper.activity.MainActivity" >
 		    <!-- Parent activity meta-data to support 4.0 and lower -->
 		    <meta-data
 		        android:name="android.support.PARENT_ACTIVITY"
-		        android:value="MainActivity" />
+		        android:value="edu.kea.pm.bookkeeper.activity.MainActivity" />
     	</activity>
         
     </application>
